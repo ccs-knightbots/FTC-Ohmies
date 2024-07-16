@@ -25,6 +25,7 @@ public class AutoArmReturn {
                 Board.setClawServo(0);
                 Board.setWristServo(0);
                 Board.setArmAngle(.011486);
+                // Change the number above to change the angle. It is the same as the angle displayed on the Driver Hub.
                 state = State.LOWER;
                 break;
             case LOWER:
