@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.mechanism;
 
 
 public class Traction {
-    ProgrammingBoard Board = new ProgrammingBoard();
-    Robot2Board Board2 = new Robot2Board();
+    ProgrammingBoard localBoard;
+    public Traction(ProgrammingBoard activeBoard) {
+        localBoard = activeBoard;
+    }
 
     // We have to go through "Board" to use the motors.
 
@@ -31,12 +33,11 @@ public class Traction {
             leftBackPower  /= max;
         }
         // Readjusts for max value to preserve the intention of the controller.
-        if (Board.isBoard1Active()) {
-            Board.setDCMotorPower(leftFrontPower, rightBackPower, rightFrontPower, leftBackPower);
-            // Sends the desired inputs over to the Board class.
-        } else {
-            Board2.setDCMotorPower(leftFrontPower, rightBackPower, rightFrontPower, leftBackPower);
-        }
+
+        localBoard.setDCMotorPower(leftFrontPower, rightBackPower, rightFrontPower, leftBackPower);
+        // Sends the desired inputs over to the Board class.
+
+
 
 
 

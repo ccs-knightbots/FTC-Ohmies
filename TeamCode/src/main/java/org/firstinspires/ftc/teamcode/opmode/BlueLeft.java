@@ -19,7 +19,7 @@ public class BlueLeft extends OpMode {
 
     State state = State.LEFT;
     ProgrammingBoard Board = new ProgrammingBoard();
-    Traction DriveTrain = new Traction();
+    Traction DriveTrain = new Traction(Board);
     @Override
     public void init() {
         Board.init(hardwareMap);

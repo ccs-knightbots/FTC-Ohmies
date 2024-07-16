@@ -20,7 +20,7 @@ public class RedLeft extends OpMode {
 
     State state = State.INITIAL;
     ProgrammingBoard Board = new ProgrammingBoard();
-    Traction DriveTrain = new Traction();
+    Traction DriveTrain = new Traction(Board);
 
     @Override
     public void init() {

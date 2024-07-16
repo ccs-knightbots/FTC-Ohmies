@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class Robot2Board {
+public class Robot2Board extends ProgrammingBoard {
     private static DcMotor leftFrontMotor_0;
     private static DcMotor leftBackMotor_1;
     private static DcMotor rightBackMotor_2;
