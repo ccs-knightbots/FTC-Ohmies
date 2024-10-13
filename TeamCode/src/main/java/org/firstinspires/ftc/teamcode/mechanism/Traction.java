@@ -1,9 +1,11 @@
 package org.firstinspires.ftc.teamcode.mechanism;
 
 
+import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
+
 public class Traction {
-    ProgrammingBoard localBoard;
-    public Traction(ProgrammingBoard activeBoard) {
+    AbstractBoard localBoard;
+    public Traction(AbstractBoard activeBoard) {
         localBoard = activeBoard;
     }
 
@@ -36,10 +38,6 @@ public class Traction {
 
         localBoard.setDCMotorPower(leftFrontPower, rightBackPower, rightFrontPower, leftBackPower);
         // Sends the desired inputs over to the Board class.
-
-
-
-
 
     }
 }

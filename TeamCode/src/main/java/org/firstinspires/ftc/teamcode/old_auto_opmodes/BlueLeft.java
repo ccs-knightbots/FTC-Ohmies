@@ -1,23 +1,23 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.old_auto_opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.mechanism.ProgrammingBoard;
+import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
 import org.firstinspires.ftc.teamcode.mechanism.Traction;
 
 @Autonomous
-public class RedRight extends OpMode {
+public class BlueLeft extends OpMode {
 
     enum State {
-        RIGHT,
+        LEFT,
         JOLT,
         BACK,
         STOP,
         FINISH
     }
 
-    State state = State.RIGHT;
+    State state = State.LEFT;
     ProgrammingBoard Board = new ProgrammingBoard();
     Traction DriveTrain = new Traction(Board);
     @Override
@@ -27,20 +27,17 @@ public class RedRight extends OpMode {
     @Override
     public void start(){
         resetRuntime();
-        State state = State.RIGHT;
+        State state = State.LEFT;
 
     }
 
     @Override
     public void loop(){
         telemetry.addData("Time", getRuntime());
-        telemetry.update();
-
 
         switch (state) {
-
-            case RIGHT:
-                DriveTrain.controllerDrive(0, .5, 0);
+            case LEFT:
+                DriveTrain.controllerDrive(0, -.5, 0);
                 state = State.JOLT;
                 break;
 
@@ -71,7 +68,9 @@ public class RedRight extends OpMode {
                 }
                 break;
 
+        }
+        
+        telemetry.update();
 
-        }
-        }
+    }
 }

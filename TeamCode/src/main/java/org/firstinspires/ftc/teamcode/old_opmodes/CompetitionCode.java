@@ -1,13 +1,15 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.old_opmodes;
 
 
-import android.support.v4.app.INotificationSideChannel;
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.mechanism.*;
 
-@TeleOp
+import org.firstinspires.ftc.teamcode.old_mechanism.AutoArmReturn;
+import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
+import org.firstinspires.ftc.teamcode.mechanism.Traction;
+
+@Disabled
 public class CompetitionCode extends OpMode {
 
     ProgrammingBoard Board = new ProgrammingBoard();

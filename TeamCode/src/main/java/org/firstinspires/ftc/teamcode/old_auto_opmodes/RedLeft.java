@@ -1,65 +1,74 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.old_auto_opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.mechanism.ProgrammingBoard;
+import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
 import org.firstinspires.ftc.teamcode.mechanism.Traction;
 
 @Autonomous
-public class BlueLeft extends OpMode {
+public class RedLeft extends OpMode {
 
     enum State {
-        LEFT,
+        INITIAL,
+        STRAFE1,
         JOLT,
         BACK,
         STOP,
         FINISH
     }
 
-    State state = State.LEFT;
+    State state = State.INITIAL;
     ProgrammingBoard Board = new ProgrammingBoard();
     Traction DriveTrain = new Traction(Board);
+
     @Override
     public void init() {
         Board.init(hardwareMap);
     }
+
     @Override
-    public void start(){
+    public void start() {
         resetRuntime();
-        State state = State.LEFT;
+        State state = State.INITIAL;
 
     }
 
     @Override
-    public void loop(){
+    public void loop() {
         telemetry.addData("Time", getRuntime());
 
         switch (state) {
-            case LEFT:
-                DriveTrain.controllerDrive(0, -.5, 0);
-                state = State.JOLT;
+            case INITIAL:
+                DriveTrain.controllerDrive(0.5, 0, 0);
+                state = State.STRAFE1;
                 break;
 
+            case STRAFE1:
+                if (getRuntime() >= .1) {
+                    state = State.JOLT;
+                    DriveTrain.controllerDrive(0, .5, 0);
+                }
+                break;
             case JOLT:
-                if (getRuntime() >= 2.25) {
+                if (getRuntime() >= 4) {
                     DriveTrain.controllerDrive(.5, 0, 0);
                     state = State.BACK;
                     Board.setIntakePower(-1);
                 }
                 break;
-
             case BACK:
-                if (getRuntime() >= 2.5) {
+                if (getRuntime() >= 4.25) {
                     DriveTrain.controllerDrive(-.5, 0, 0);
                     state = State.STOP;
                 }
                 break;
             case STOP:
-                if (getRuntime() >= 2.75) {
-                    DriveTrain.controllerDrive(0, 0, 0);
+                if (getRuntime() >= 4.5) {
+                    DriveTrain.controllerDrive(0,0,0);
                     state = State.FINISH;
                 }
+                telemetry.update();
 
             case FINISH:
                 if (getRuntime() >= 10) {
@@ -69,8 +78,5 @@ public class BlueLeft extends OpMode {
                 break;
 
         }
-        
-        telemetry.update();
-
     }
 }

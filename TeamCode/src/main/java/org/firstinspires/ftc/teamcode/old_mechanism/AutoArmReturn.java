@@ -1,6 +1,4 @@
-package org.firstinspires.ftc.teamcode.mechanism;
-
-import org.firstinspires.ftc.teamcode.opmode.BlueLeft;
+package org.firstinspires.ftc.teamcode.old_mechanism;
 
 public class AutoArmReturn {
     enum State {
