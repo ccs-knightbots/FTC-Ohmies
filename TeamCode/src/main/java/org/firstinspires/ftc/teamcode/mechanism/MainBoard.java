@@ -6,6 +6,13 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.vision.VisionPortal;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+
+import java.util.List;
+
 public class MainBoard extends AbstractBoard{
     private static DcMotor leftFrontMotor_0;
     private static DcMotor leftBackMotor_1;
@@ -18,6 +25,9 @@ public class MainBoard extends AbstractBoard{
     private static Servo clawServo;
     private static Servo slideServo;
     private static Servo wristServo;
+
+    private AprilTagProcessor aprilTagProcessor;
+    private VisionPortal visionPortal;
 
     // Defines the motors.
 
@@ -52,8 +62,8 @@ public class MainBoard extends AbstractBoard{
         linearExtender2.setDirection(DcMotor.Direction.FORWARD);
         linearExtender1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearExtender2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linearExtender1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        linearExtender2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        linearExtender1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        linearExtender2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         linearExtender1.setTargetPosition(0);
         linearExtender2.setTargetPosition(0);
         tickPerRotation = (int) linearExtender1.getMotorType().getTicksPerRev();
@@ -61,6 +71,10 @@ public class MainBoard extends AbstractBoard{
         clawServo = hwMap.get(Servo.class, "clawServo");
         slideServo = hwMap.get(Servo.class, "slideServo");
         wristServo = hwMap.get(Servo.class, "wristServo");
+
+        WebcamName webcamName = hwMap.get(WebcamName.class, "Webcam");
+        aprilTagProcessor = AprilTagProcessor.easyCreateWithDefaults();
+        visionPortal = VisionPortal.easyCreateWithDefaults(webcamName, aprilTagProcessor);
     }
 
     public void setDCMotorPower(double leftFrontPower, double leftBackPower, double rightFrontPower, double rightBackPower){
@@ -106,7 +120,6 @@ public class MainBoard extends AbstractBoard{
         linearExtender2.setPower(1);
         linearExtender1.setTargetPosition(0);
         linearExtender2.setTargetPosition(0);
-
     }
 
     public void cancelRunTo() {
@@ -114,7 +127,14 @@ public class MainBoard extends AbstractBoard{
         linearExtender2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         linearExtender1.setPower(0);
         linearExtender2.setPower(0);
+    }
 
+    public List<AprilTagDetection> getAprilTagDetections() {
+        return aprilTagProcessor.getDetections();
+    }
+
+    public void stopStreaming() {
+        visionPortal.stopStreaming();
     }
 }
 

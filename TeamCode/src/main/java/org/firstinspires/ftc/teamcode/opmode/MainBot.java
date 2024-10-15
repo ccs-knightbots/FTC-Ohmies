@@ -5,44 +5,61 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.mechanism.MainBoard;
 import org.firstinspires.ftc.teamcode.mechanism.Structures;
-import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
 import org.firstinspires.ftc.teamcode.mechanism.Traction;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
+import java.util.List;
 
 @TeleOp
 public class MainBot extends OpMode {
-    MainBoard Board = new MainBoard();
+    MainBoard board = new MainBoard();
     // This class directly controls each motor.
-    Traction DriveTrain = new Traction(Board);
+    Traction driveTrain = new Traction(board);
     // This is the class which does all the computations for each motor's speed.
-    Structures CodeStructures = new Structures();
+    Structures codeStructures = new Structures();
 
     double axial;
     double lateral;
     double yaw;
-    double height;
-    double slideLocation = 0;
-    boolean alreadyPressed;
-    boolean alreadyPressed1;
-    boolean state;
-    boolean state1;
+    double slideLocation = .7;
     double slowDown = 1;
 
+    boolean alreadyPressed;
 
     @Override
     public void init() {
-        Board.init(hardwareMap);
-// This initializes the hardware map.
+        board.init(hardwareMap);
+//        This initializes the hardware map.
 
         telemetry.addLine("Initialized");
         telemetry.update();
 
-        // By the way, variables defined in here don't extend outside.
+//        By the way, variables defined in here don't extend outside.
+    }
+
+    @Override
+    public void init_loop() {
+        List<AprilTagDetection> currentDetections = board.getAprilTagDetections();
+        StringBuilder idsFound = new StringBuilder();
+
+        for (AprilTagDetection detection: currentDetections) {
+            idsFound.append(detection.id);
+            idsFound.append(" ");
+        }
+
+        telemetry.addData("April Tags", idsFound);
+        telemetry.update();
+    }
+
+    @Override
+    public void start() {
+        board.stopStreaming();
     }
 
     @Override
     public void loop() {
 //      This allows the driver to switch between normal and inverted. This is useful because sometimes the robot drives backwards.
-        if (CodeStructures.toggle_1(gamepad1.a)){
+        if (codeStructures.toggle_1(gamepad1.a)){
             axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             lateral = gamepad1.left_stick_x;
         } else {
@@ -60,7 +77,7 @@ public class MainBot extends OpMode {
         }
 
 //      This function sends the game pad inputs to the Traction class.
-        DriveTrain.controllerDrive(axial*slowDown, lateral*slowDown, yaw*slowDown);
+        driveTrain.controllerDrive(axial*slowDown, lateral*slowDown, yaw*slowDown);
 
 //      This code block moves the slideServo in and out.
         if (gamepad1.dpad_left) {
@@ -68,37 +85,45 @@ public class MainBot extends OpMode {
         } else if (gamepad1.dpad_right) {
             slideLocation = 0;
         }
-        Board.setSlideServo(slideLocation);
+        board.setSlideServo(slideLocation);
 
 //        This code block runs the linear slides up and down.
         if (gamepad1.dpad_up) {
-            Board.runTo(2.15);
+            board.runTo(1.7);
+            telemetry.addLine("Working hard");
+
+//            Full run is 2.15
         } else if (gamepad1.dpad_down){
-            Board.runBack();
+            telemetry.addLine("Working hard");
+            board.runBack();
         }
 
+//        To stop the Linear Extenders from wasting battery and heating up, we signal for them to turn off when they reach near 0.
+        boolean userInput = Math.abs(board.getLinearExtender1()) <= .1;
+        if (userInput && !alreadyPressed) {
+            board.cancelRunTo();
+        }
+        alreadyPressed = userInput;
+
 //        This toggle block moves the claw servo.
-        if (CodeStructures.toggle_2(gamepad2.x)) {
-            Board.setClawServo(90);
+        if (codeStructures.toggle_2(gamepad2.x)) {
+            board.setClawServo(90);
         } else {
-            Board.setClawServo(0);
+            board.setClawServo(0);
         }
 
 //        Wrist servo only uses 135 degrees out of the available 270. The other stuff is to allow the [-1, 1,]
 //        left_stick_x to take advantage of all the space.
-        Board.setWristServo(135*(-gamepad2.left_stick_y + 1) / 2);
+        board.setWristServo(135*(-gamepad2.left_stick_y + 1) / 2);
 
 //        Debugging information printed on the Driver hub.
-        telemetry.addData("Claw rotation: ", Board.getClawRotation());
-        telemetry.addData("SlideServo: ", Board.getSlidePosition());
-        telemetry.addData("Wrist Rotation: ", Board.getWristRotation());
-        telemetry.addData("Linear Extender: ", Board.getLinearExtender1());
-        telemetry.addData("Linear Extender: ", Board.getLinearExtender2());
+        telemetry.addData("Claw rotation: ", board.getClawRotation());
+        telemetry.addData("SlideServo: ", board.getSlidePosition());
+        telemetry.addData("Wrist Rotation: ", board.getWristRotation());
+        telemetry.addData("Linear Extender: ", board.getLinearExtender1());
+        telemetry.addData("Linear Extender: ", board.getLinearExtender2());
 
         telemetry.update();
-
-
-
 
     }
 }
