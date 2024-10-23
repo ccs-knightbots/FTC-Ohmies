@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.old_auto_opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
 import org.firstinspires.ftc.teamcode.mechanism.Traction;
 
-@Autonomous
+@Disabled
 public class RedRight extends OpMode {
 
     enum State {

@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.mechanism;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -23,15 +21,17 @@ public class MainBoard extends AbstractBoard{
     private static DcMotor linearExtender2;
 
     private static Servo clawServo;
-    private static Servo slideServo;
+    private static Servo tongueServo;
     private static Servo wristServo;
-
     private AprilTagProcessor aprilTagProcessor;
     private VisionPortal visionPortal;
 
     // Defines the motors.
 
     int tickPerRotation;
+    final static double TICKS_PER_SLIDE_MOTOR = 537.7; // From GoBilda 19.2:1 motor
+
+
 
     public void init(HardwareMap hwMap) {
         // Function runs during init phase of robot.
@@ -69,7 +69,7 @@ public class MainBoard extends AbstractBoard{
         tickPerRotation = (int) linearExtender1.getMotorType().getTicksPerRev();
 
         clawServo = hwMap.get(Servo.class, "clawServo");
-        slideServo = hwMap.get(Servo.class, "slideServo");
+        tongueServo = hwMap.get(Servo.class, "tongueServo");
         wristServo = hwMap.get(Servo.class, "wristServo");
 
         WebcamName webcamName = hwMap.get(WebcamName.class, "Webcam");
@@ -95,14 +95,15 @@ public class MainBoard extends AbstractBoard{
     public double getClawRotation() {return clawServo.getPosition()*270;}
 //    Note: the getPosition() method doesn't return the real position, only the set position
 
-    public void setSlideServo(double slideMeasure) {slideServo.setPosition(slideMeasure);}
-    public double getSlidePosition() {return slideServo.getPosition();}
+    public void setTongueServo(double tongueMeasure) {tongueServo.setPosition(tongueMeasure);}
+    public double getTonguePosition() {return tongueServo.getPosition();}
 
     public void setWristServo(double wristAngle) {wristServo.setPosition(wristAngle/270);}
     public double getWristRotation() {return wristServo.getPosition()*270;}
 
     public double getLinearExtender1() {return linearExtender1.getCurrentPosition()/(.5*tickPerRotation);}
     public double getLinearExtender2() {return linearExtender2.getCurrentPosition()/(.5*tickPerRotation);}
+//    For some reason, the FTC ticksPerRotation is 2x what it should be.
 
     public void runTo(double location) {
         linearExtender1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
