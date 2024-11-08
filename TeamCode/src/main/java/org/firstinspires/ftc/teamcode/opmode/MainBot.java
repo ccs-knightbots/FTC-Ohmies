@@ -21,7 +21,7 @@ public class MainBot extends OpMode {
     double axial;
     double lateral;
     double yaw;
-    double tongueLocation = .7;
+    double tongueLocation = .9;
     double slowDown = .5;
 
     boolean alreadyPressed;
@@ -40,16 +40,7 @@ public class MainBot extends OpMode {
 
     @Override
     public void init_loop() {
-        List<AprilTagDetection> currentDetections = board.getAprilTagDetections();
-        StringBuilder idsFound = new StringBuilder();
-
-        for (AprilTagDetection detection: currentDetections) {
-            idsFound.append(detection.id);
-            idsFound.append(" ");
-        }
-
-        telemetry.addData("April Tags", idsFound);
-        telemetry.update();
+       telemetryAprilTag();
     }
 
     @Override
@@ -85,13 +76,15 @@ public class MainBot extends OpMode {
             tongueLocation = .7;
         } else if (gamepad2.dpad_up) {
             tongueLocation = 0;
+//            .7 is fully withdrawn
         }
         board.setTongueServo(tongueLocation);
 
 //        This code block runs the linear slides up and down.
         if (gamepad1.dpad_up) {
-            board.runTo(1.7);
+            board.runTo(2.05);
 //            Full run is 2.15
+//            Original is 1.7
         } else if (gamepad1.dpad_down){
             board.runBack();
         }
@@ -118,11 +111,11 @@ public class MainBot extends OpMode {
         if (codeStructures.toggle_2(gamepad2.x)) {
             board.setClawServo(0);
         } else {
-            board.setClawServo(90);
+            board.setClawServo(110);
         }
 
-//        This maps the game pad [-1, 1] to the servo [0, 270].
-        board.setWristServo(270 * (gamepad2.left_stick_y + 1) / 2);
+//        This maps the game pad [-1, 1] to the servo [0, 135].
+        board.setWristServo(270 * (-gamepad2.left_stick_y + 1) / 4);
 
 //        Debugging information printed on the Driver hub.
         telemetry.addData("Claw rotation: ", board.getClawRotation());
@@ -134,4 +127,29 @@ public class MainBot extends OpMode {
         telemetry.update();
 
     }
+
+    private void telemetryAprilTag() {
+        List<AprilTagDetection> currentDetections = board.getAprilTagDetections();
+
+        // Step through the list of detections and display info for each one.
+        for (AprilTagDetection detection : currentDetections) {
+            if (detection.metadata != null) {
+                telemetry.addLine(String.format("\n==== (ID %d) %s", detection.id, detection.metadata.name));
+                telemetry.addLine(String.format("XYZ %6.1f %6.1f %6.1f  (inch)", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.z));
+                telemetry.addLine(String.format("PRY %6.1f %6.1f %6.1f  (deg)", detection.ftcPose.pitch, detection.ftcPose.roll, detection.ftcPose.yaw));
+                telemetry.addLine(String.format("RBE %6.1f %6.1f %6.1f  (inch, deg, deg)", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.elevation));
+            } else {
+                telemetry.addLine(String.format("\n==== (ID %d) Unknown", detection.id));
+                telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detection.center.x, detection.center.y));
+            }
+        }   // end for() loop
+
+        // Add "key" information to telemetry
+        telemetry.addLine("\nkey:\nXYZ = X (Right), Y (Forward), Z (Up) dist.");
+        telemetry.addLine("PRY = Pitch, Roll & Yaw (XYZ Rotation)");
+        telemetry.addLine("RBE = Range, Bearing & Elevation");
+
+        telemetry.update();
+    }   // end method telemetryAprilTag()
+
 }

@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import org.firstinspires.ftc.robotcore.internal.camera.calibration.CameraCalibration;
 import org.opencv.core.Mat;
 
-public class BasicVisionProcessor implements org.firstinspires.ftc.vision.VisionProcessor {
+public class VisionProcessor implements org.firstinspires.ftc.vision.VisionProcessor {
 
     @Override
     public void init(int width, int height, CameraCalibration calibration) {

@@ -1,10 +1,15 @@
 package org.firstinspires.ftc.teamcode.mechanism;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -23,6 +28,7 @@ public class MainBoard extends AbstractBoard{
     private static Servo clawServo;
     private static Servo tongueServo;
     private static Servo wristServo;
+
     private AprilTagProcessor aprilTagProcessor;
     private VisionPortal visionPortal;
 
@@ -30,8 +36,6 @@ public class MainBoard extends AbstractBoard{
 
     int tickPerRotation;
     final static double TICKS_PER_SLIDE_MOTOR = 537.7; // From GoBilda 19.2:1 motor
-
-
 
     public void init(HardwareMap hwMap) {
         // Function runs during init phase of robot.
@@ -48,10 +52,10 @@ public class MainBoard extends AbstractBoard{
         rightFrontMotor_3.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         // Sets the mode. *See official FTC guide for more options.
 
-        leftFrontMotor_0.setDirection(DcMotor.Direction.REVERSE);
+        leftFrontMotor_0.setDirection(DcMotor.Direction.FORWARD);
         leftBackMotor_1.setDirection(DcMotor.Direction.REVERSE);
         rightBackMotor_2.setDirection(DcMotor.Direction.FORWARD);
-        rightFrontMotor_3.setDirection(DcMotor.Direction.FORWARD);
+        rightFrontMotor_3.setDirection(DcMotor.Direction.REVERSE);
         // Sets the direction. You might have to change this if hardware team screws up. `-`
 
         linearExtender1 = hwMap.get(DcMotor.class, "linearExtender1");

@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.mechanism.AbstractBoard;
-import org.firstinspires.ftc.teamcode.mechanism.MainBoard;
 
 public class Robot2Board extends AbstractBoard {
     private static DcMotor leftFrontMotor_0;
