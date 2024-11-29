@@ -87,7 +87,7 @@ public class RobBot extends OpMode {
         }
         alreadyPressed = userInput;
 
-//        This end stage code will be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
+//        This end stage code may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
 //        due to the anti-overheating mechanism
 //        if (gamepad2.right_stick_button) {
 //            finalStage = true;

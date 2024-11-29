@@ -46,7 +46,7 @@ public class Slides {
         return (int) targetPosition;
     }
 
-    public void setPower(double power){
+    public void setPower(double power) {
         linearExtender1.setPower(power);
         linearExtender2.setPower(power);
     }
