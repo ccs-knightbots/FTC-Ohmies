@@ -20,7 +20,7 @@ public class UniversalAuto extends OpMode {
     RobotCore robotCore;
 
     @Override
-    public void init() {robotCore = new RobotCore();}
+    public void init() {robotCore = new RobotCore(hardwareMap);}
 
 
     @Override
