@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.New_System.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.New_System.statemachines.SlidesSM;
+import org.firstinspires.ftc.teamcode.statemachines.SlidesSM;
 
 public class Slides {
 

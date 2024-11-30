@@ -1,11 +1,11 @@
-package org.firstinspires.ftc.teamcode.opmode;
+package org.firstinspires.ftc.teamcode.legacy.years.opmode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.mechanism.MainBoard;
-import org.firstinspires.ftc.teamcode.mechanism.Structures;
-import org.firstinspires.ftc.teamcode.mechanism.Traction;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.MainBoard;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Structures;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Traction;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;

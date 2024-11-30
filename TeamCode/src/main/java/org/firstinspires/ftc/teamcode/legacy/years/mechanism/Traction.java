@@ -1,7 +1,5 @@
-package org.firstinspires.ftc.teamcode.mechanism;
+package org.firstinspires.ftc.teamcode.legacy.years.mechanism;
 
-
-import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
 
 public class Traction {
     AbstractBoard localBoard;

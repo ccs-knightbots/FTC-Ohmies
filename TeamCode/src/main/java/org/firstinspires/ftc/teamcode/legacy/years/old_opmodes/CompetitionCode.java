@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode.old_opmodes;
+package org.firstinspires.ftc.teamcode.legacy.years.old_opmodes;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.old_mechanism.AutoArmReturn;
-import org.firstinspires.ftc.teamcode.old_mechanism.ProgrammingBoard;
-import org.firstinspires.ftc.teamcode.mechanism.Traction;
+import org.firstinspires.ftc.teamcode.legacy.years.old_mechanism.AutoArmReturn;
+import org.firstinspires.ftc.teamcode.legacy.years.old_mechanism.ProgrammingBoard;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Traction;
 
 @Disabled
 public class CompetitionCode extends OpMode {

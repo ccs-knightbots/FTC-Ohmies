@@ -1,17 +1,7 @@
-package org.firstinspires.ftc.teamcode.mechanism;
+package org.firstinspires.ftc.teamcode.legacy.years.mechanism;
 
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.vision.VisionPortal;
-import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
-import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
-
-import java.util.List;
 
 public class GongBoard extends AbstractBoard{
     private static DcMotor leftFrontMotor_0;

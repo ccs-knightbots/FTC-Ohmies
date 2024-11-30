@@ -1,13 +1,13 @@
-package org.firstinspires.ftc.teamcode.auto_opmodes;
+package org.firstinspires.ftc.teamcode.legacy.years.auto_opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.mechanism.MainBoard;
-import org.firstinspires.ftc.teamcode.mechanism.Traction;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.MainBoard;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Traction;
 
 @Autonomous
-public class UniversalAuto extends OpMode {
+public class UnivAuto extends OpMode {
     enum State {
         FORWARD,
         RIGHT,

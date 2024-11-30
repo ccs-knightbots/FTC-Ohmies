@@ -1,10 +1,9 @@
-package org.firstinspires.ftc.teamcode.New_System.teleops;
+package org.firstinspires.ftc.teamcode.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.teamcode.New_System.RobotCore;
-import org.firstinspires.ftc.teamcode.New_System.Structures;
-import org.firstinspires.ftc.teamcode.New_System.statemachines.SlidesSM;
+import org.firstinspires.ftc.teamcode.utilities.*;
+import org.firstinspires.ftc.teamcode.statemachines.SlidesSM;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;

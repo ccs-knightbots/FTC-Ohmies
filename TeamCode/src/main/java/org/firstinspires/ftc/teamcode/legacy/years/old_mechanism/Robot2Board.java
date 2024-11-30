@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.old_mechanism;
+package org.firstinspires.ftc.teamcode.legacy.years.old_mechanism;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.mechanism.AbstractBoard;
+import org.firstinspires.ftc.teamcode.legacy.years.mechanism.AbstractBoard;
 
 public class Robot2Board extends AbstractBoard {
     private static DcMotor leftFrontMotor_0;
