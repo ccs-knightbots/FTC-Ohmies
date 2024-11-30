@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
+import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.utilities.*;
@@ -17,6 +18,7 @@ public class RobBot extends OpMode {
     double slowDown;
     boolean alreadyPressed;
     boolean finalStage;
+    SparkFunOTOS.Pose2D pos;
 
     @Override
     public void init() {
@@ -91,6 +93,20 @@ public class RobBot extends OpMode {
 //        if (gamepad2.right_stick_button) {
 //            finalStage = true;
 //            board.runTo(.7); }
+
+        //        Debugging information printed on the Driver hub.
+        telemetry.addData("Claw rotation: ", robotCore.claw.getClawRotation());
+        telemetry.addData("Wrist Rotation: ", robotCore.wrist.getWristRotation());
+        telemetry.addData("Linear Extender: ", robotCore.slides.getLinearExtender1());
+        telemetry.addData("Linear Extender: ", robotCore.slides.getLinearExtender2());
+
+        pos = robotCore.otos.getPose();
+        // Log the position to the telemetry
+        telemetry.addData("X coordinate", pos.x);
+        telemetry.addData("Y coordinate", pos.y);
+        telemetry.addData("Heading angle", pos.h);
+
+        telemetry.update();
     }
 
 
