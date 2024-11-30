@@ -13,6 +13,7 @@ public class RobotCore {
     public ManualDrive manualDrive;
     public Vision vision;
     public Otos otos;
+    public SparkFunOTOSDrive sparkFunOTOSDrive;
 
     public RobotCore(HardwareMap hwMap) {
         claw = new Claw(hwMap);
@@ -21,5 +22,8 @@ public class RobotCore {
         manualDrive = new ManualDrive(hwMap);
         vision = new Vision(hwMap);
         otos = new Otos(hwMap);
+
+        sparkFunOTOSDrive = new SparkFunOTOSDrive(hwMap, otos.getRRPose());
+
     }
 }

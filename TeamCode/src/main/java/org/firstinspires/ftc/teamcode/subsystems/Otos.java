@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.sparkfun.SparkFunOTOS;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -21,7 +22,11 @@ public class Otos {
         // Get the latest position, which includes the x and y coordinates, plus the
         // heading angle
         return otos.getPosition();
+    }
 
+    public Pose2d getRRPose() {
+        SparkFunOTOS.Pose2D pos = otos.getPosition();
+        return new Pose2d(36, 64, 3*Math.PI/2);
     }
 
     public void resetTracking() {
