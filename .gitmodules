@@ -1,0 +1,6 @@
+[submodule "path/to/submodule"]
+	path = path/to/submodule
+	url = https://github.com/jdhs-ftc/sparkfun-otos-quickstart.git
+[submodule "external/repo"]
+	path = external/repo
+	url = https://github.com/jdhs-ftc/sparkfun-otos-quickstart.git
