@@ -14,11 +14,14 @@ public class Claw {
     }
 
     public void openClaw() {
-        clawServo.setPosition(110);
+        clawServo.setPosition(.5);
     }
 
-    public void setClawServo(double clawAngle) {clawServo.setPosition(clawAngle/270);}
+    public void setClawServo(double clawAngle) {clawServo.setPosition(clawAngle);}
 
-    public double getClawRotation() {return clawServo.getPosition()*270;}
+    public double getClawRotation() {return clawServo.getPosition();}
 //    Note: the getPosition() method doesn't return the real position, only the set position
+
+    //    The units for these functions are rotations. 1 rotation = 360 degrees
+
 }

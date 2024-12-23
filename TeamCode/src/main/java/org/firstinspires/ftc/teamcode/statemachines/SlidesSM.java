@@ -7,8 +7,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Slides;
 public class SlidesSM {
 
     Slides slides;
-    STATE currentState = STATE.RUN_TO_POSITION;
-
+    STATE currentState = STATE.MANUAL_CONTROL;
 
     public enum STATE {
         MANUAL_CONTROL,
@@ -31,8 +30,8 @@ public class SlidesSM {
     public void transition(EVENT event) {
         switch (event) {
             case ENABLE_MANUAL:
-                slides.linearExtender1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-                slides.linearExtender2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                slides.linearExtender1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                slides.linearExtender2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 currentState = STATE.MANUAL_CONTROL;
                 break;
             case ENABLE_RTP:

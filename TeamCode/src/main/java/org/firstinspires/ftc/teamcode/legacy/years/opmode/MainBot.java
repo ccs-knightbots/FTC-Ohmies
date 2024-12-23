@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.legacy.years.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -109,9 +110,9 @@ public class MainBot extends OpMode {
 
 //        This toggle block moves the claw servo.
         if (codeStructures.toggle_2(gamepad2.x)) {
-            board.setClawServo(0);
-        } else {
             board.setClawServo(110);
+        } else {
+            board.setClawServo(0);
         }
 
 //        This maps the game pad [-1, 1] to the servo [0, 135].
