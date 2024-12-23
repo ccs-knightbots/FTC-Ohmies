@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.legacy.years.opmode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -7,7 +8,7 @@ import org.firstinspires.ftc.teamcode.legacy.years.mechanism.GongBoard;
 import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Structures;
 import org.firstinspires.ftc.teamcode.legacy.years.mechanism.Traction;
 
-@TeleOp
+@Disabled
 public class GongBot extends OpMode{
     GongBoard board = new GongBoard();
     Traction driveTrain = new Traction(board);

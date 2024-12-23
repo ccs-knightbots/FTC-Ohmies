@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.utilities.*;
 import org.firstinspires.ftc.teamcode.statemachines.SlidesSM;
@@ -8,26 +9,29 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
+@TeleOp
 public class RobBot extends OpMode {
 
     RobotCore robotCore;
     Structures structures;
 
     double axial, lateral, yaw;
-    double slowDown;
+    double slowDown = .5;
     boolean alreadyPressed;
     boolean finalStage;
 
     @Override
     public void init() {
-         robotCore = new RobotCore(hardwareMap);
+        robotCore = new RobotCore(hardwareMap);
+        structures = new Structures();
     }
 
     @Override
     public void init_loop() {telemetryAprilTag();}
 
     @Override
-    public void start() {robotCore.vision.stopStreaming();
+    public void start() {
+        robotCore.vision.stopStreaming();
     }
 
     @Override
@@ -35,11 +39,11 @@ public class RobBot extends OpMode {
 
 //      This allows the driver to switch between normal and inverted. This is useful because sometimes the robot drives backwards.
         if (structures.toggle_1(gamepad1.a)) {
-            axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            lateral = gamepad1.left_stick_x;
-        } else {
             axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             lateral = -gamepad1.left_stick_x;
+        } else {
+            axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            lateral = gamepad1.left_stick_x;
         }
 //      Rotation doesn't change even if you invert it.
         yaw = gamepad1.right_stick_x;
@@ -62,8 +66,8 @@ public class RobBot extends OpMode {
             robotCore.claw.closeClaw();
         }
 
-//      This maps the game pad [-1, 1] to the servo [0, 135].
-        robotCore.wrist.setWristServo(270 * (-gamepad2.left_stick_y + 1) / 4);
+//      This maps the game pad [-1, 1] to the servo [0, .5]. Measured in rotations.
+        robotCore.wrist.setWristServo((-gamepad2.left_stick_y + 1) / 4);
 
 
 //        This code block runs the linear slides up and down.
@@ -74,6 +78,8 @@ public class RobBot extends OpMode {
         } else if (gamepad1.dpad_down) {
             robotCore.slides.goDown();
         }
+        robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
+
 
 //        To stop the Linear Extenders from wasting battery and heating up, we signal for them to turn off when they reach near 0.
         boolean userInput = Math.abs(robotCore.slides.getLinearExtender1()) <= .1;
@@ -91,6 +97,8 @@ public class RobBot extends OpMode {
 //        if (gamepad2.right_stick_button) {
 //            finalStage = true;
 //            board.runTo(.7); }
+
+        telemetry.addData("State: ", robotCore.slides.slidesSM.getState());
     }
 
 

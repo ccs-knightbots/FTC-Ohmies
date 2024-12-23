@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.teamcode.statemachines.SlidesSM;
@@ -19,11 +20,11 @@ public class Slides {
         linearExtender1 = hwMap.get(DcMotor.class, "linearExtender1");
         linearExtender2 = hwMap.get(DcMotor.class, "linearExtender2");
 
-        linearExtender1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        linearExtender2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        linearExtender1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        linearExtender2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         linearExtender1.setDirection(DcMotor.Direction.FORWARD);
-        linearExtender2.setDirection(DcMotor.Direction.FORWARD);
+        linearExtender2.setDirection(DcMotor.Direction.REVERSE);
 
         linearExtender1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         linearExtender2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
