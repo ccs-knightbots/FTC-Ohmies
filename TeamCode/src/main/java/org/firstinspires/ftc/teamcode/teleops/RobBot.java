@@ -29,7 +29,9 @@ public class RobBot extends OpMode {
     }
 
     @Override
-    public void init_loop() {telemetryAprilTag();}
+    public void init_loop() {
+        telemetryAprilTag();
+    }
 
     @Override
     public void start() {
@@ -96,9 +98,10 @@ public class RobBot extends OpMode {
 
 //        This end stage code may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
 //        due to the anti-overheating mechanism
-//        if (gamepad2.right_stick_button) {
-//            finalStage = true;
-//            board.runTo(.7); }
+        if (gamepad2.right_stick_button) {
+            finalStage = true;
+            robotCore.slides.goUp(1.2); }
+
 
         //        Debugging information printed on the Driver hub.
         telemetry.addData("Claw rotation: ", robotCore.claw.getClawRotation());
@@ -114,9 +117,8 @@ public class RobBot extends OpMode {
 
         telemetry.update();
         telemetry.addData("State: ", robotCore.slides.slidesSM.getState());
+
     }
-
-
 
 
 // Vision Telemetry defined outside of the loop.
@@ -144,6 +146,5 @@ public class RobBot extends OpMode {
 
         telemetry.update();
     }   // end method telemetryAprilTag()
-
-
 }
+
