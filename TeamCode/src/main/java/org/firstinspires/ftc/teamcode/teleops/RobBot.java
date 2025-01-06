@@ -17,7 +17,7 @@ public class RobBot extends OpMode {
 
     double axial, lateral, yaw;
     double slowDown = .5;
-    boolean alreadyPressed;
+    boolean alreadyDown;
     boolean finalStage;
 
     @Override
@@ -32,6 +32,7 @@ public class RobBot extends OpMode {
     @Override
     public void start() {
         robotCore.vision.stopStreaming();
+        robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
     }
 
     @Override
@@ -39,11 +40,11 @@ public class RobBot extends OpMode {
 
 //      This allows the driver to switch between normal and inverted. This is useful because sometimes the robot drives backwards.
         if (structures.toggle_1(gamepad1.a)) {
-            axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
-            lateral = -gamepad1.left_stick_x;
-        } else {
             axial = -gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
             lateral = gamepad1.left_stick_x;
+        } else {
+            axial = gamepad1.left_stick_y;  // Note: pushing stick forward gives negative value
+            lateral = -gamepad1.left_stick_x;
         }
 //      Rotation doesn't change even if you invert it.
         yaw = gamepad1.right_stick_x;
@@ -74,23 +75,23 @@ public class RobBot extends OpMode {
         if (gamepad1.dpad_up) {
             robotCore.slides.goUp(2.05);
 //            Full run is 2.15
-//            Original is 1.7
-        } else if (gamepad1.dpad_down) {
+       } else if (gamepad1.dpad_down) {
             robotCore.slides.goDown();
         }
-        robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
-
+//        robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
+//        I need to test this, but I should be able to comment this line out and add a few lines in the Slides class.
+//        It might error out though due to calling setPosition() when the motors aren't in RUN_TO_POSITION
 
 //        To stop the Linear Extenders from wasting battery and heating up, we signal for them to turn off when they reach near 0.
-        boolean userInput = Math.abs(robotCore.slides.getLinearExtender1()) <= .1;
-        if (userInput && !alreadyPressed) {
+        boolean approximatelyDown = Math.abs(robotCore.slides.getLinearExtender1()) <= .1;
+        if (approximatelyDown && !alreadyDown) {
             if (finalStage) {
                 robotCore.slides.goDown();
             } else {
                 robotCore.slides.cancelRunTo();
             }
         }
-        alreadyPressed = userInput;
+        alreadyDown = approximatelyDown;
 
 //        This end stage code may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
 //        due to the anti-overheating mechanism

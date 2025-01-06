@@ -11,7 +11,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.util.List;
 
-@TeleOp
+@Disabled
 public class MainBot extends OpMode {
     MainBoard board = new MainBoard();
     // This class directly controls each motor.

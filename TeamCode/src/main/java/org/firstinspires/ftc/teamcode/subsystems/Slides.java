@@ -33,14 +33,18 @@ public class Slides {
         linearExtender2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
         slidesSM = new SlidesSM(this);
-//      SlidesSM() assigns the specific slides being used for that state machine. By using "this", we invoke the constructor Slides(),
-//      thereby pointing it towards the same Slides which we have just built in RobotCore.
+//      By invoking the constructor SlidesSM(), we pass the SlidesSM object the specific slides we are using for that state machine.
+//      We are giving it "this", which is a pointer that redirects to the constructor of the current file we are in (the Slides file.
+//      Thereby, we are giving it the slides which we have just built.
 
         tickPerRotation = (int) linearExtender1.getMotorType().getTicksPerRev();
     }
 
     public void setTargetPosition(double targetPosition) {
         this.targetPosition = targetPosition;
+        linearExtender1.setTargetPosition((int) targetPosition);
+        linearExtender2.setTargetPosition((int) targetPosition);
+
     }
 
     public int getTargetPosition() {
