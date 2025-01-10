@@ -59,12 +59,20 @@ public class RobBot extends OpMode {
 //      This function sends the game pad inputs to the Traction class.
         robotCore.manualDrive.controllerDrive(axial * slowDown, lateral * slowDown, yaw * slowDown);
 
-
-//      This toggle block moves the claw servo.
-        if (structures.toggle_2(gamepad2.x)) {
-            robotCore.claw.openClaw();
+        if (structures.toggle_3(gamepad2.start)) {
+            //      This toggle block moves the claw servo.
+            if (structures.toggle_2(gamepad2.x)) {
+                robotCore.claw.openClaw();
+            } else {
+                robotCore.claw.closeClaw();
+            }
         } else {
-            robotCore.claw.closeClaw();
+            //      This toggle block moves the claw servo.
+            if (structures.toggle_4(gamepad2.x)) {
+                robotCore.gripper.openClaw();
+            } else {
+                robotCore.gripper.closeClaw();
+            }
         }
 
 //      This maps the game pad [-1, 1] to the servo [0, .5]. Measured in rotations.
@@ -100,6 +108,9 @@ public class RobBot extends OpMode {
 //            board.runTo(.7); }
 
         telemetry.addData("State: ", robotCore.slides.slidesSM.getState());
+        telemetry.addData("Claw Rotation: ", robotCore.claw.getClawRotation());
+        telemetry.addData("Wrist Rotation: ", robotCore.wrist.getWristRotation());
+
     }
 
 
