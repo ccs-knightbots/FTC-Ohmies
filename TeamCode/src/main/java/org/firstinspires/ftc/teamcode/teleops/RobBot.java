@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.teleops;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.statemachines.TongueSM;
 import org.firstinspires.ftc.teamcode.utilities.*;
 import org.firstinspires.ftc.teamcode.statemachines.SlidesSM;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -17,8 +18,10 @@ public class RobBot extends OpMode {
 
     double axial, lateral, yaw;
     double slowDown = .5;
+    double tongueOut, tongueIn;
     boolean alreadyDown;
     boolean finalStage;
+
 
     @Override
     public void init() {
@@ -33,6 +36,7 @@ public class RobBot extends OpMode {
     public void start() {
         robotCore.vision.stopStreaming();
         robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
+        robotCore.tongue.tongueSM.transition(TongueSM.EVENT.ENABLE_MANUAL);
     }
 
     @Override
@@ -69,9 +73,9 @@ public class RobBot extends OpMode {
         } else {
             //      This toggle block moves the claw servo.
             if (structures.toggle_4(gamepad2.x)) {
-                robotCore.gripper.openClaw();
+                robotCore.gripper.openGripper();
             } else {
-                robotCore.gripper.closeClaw();
+                robotCore.gripper.closeGripper();
             }
         }
 
@@ -107,9 +111,25 @@ public class RobBot extends OpMode {
 //            finalStage = true;
 //            board.runTo(.7); }
 
+        if (robotCore.tongue.getPosition() < -2300) {
+            tongueOut = 0;
+        } else {
+            tongueOut = gamepad2.left_trigger;
+        }
+
+        if (robotCore.tongue.getPosition() > -20) {
+            tongueIn = 0;
+        } else {
+            tongueIn = gamepad2.right_trigger;
+        }
+        robotCore.tongue.setManualPower(tongueIn-tongueOut);
+
         telemetry.addData("State: ", robotCore.slides.slidesSM.getState());
         telemetry.addData("Claw Rotation: ", robotCore.claw.getClawRotation());
         telemetry.addData("Wrist Rotation: ", robotCore.wrist.getWristRotation());
+        telemetry.addData("Gripper Rotation: ", robotCore.gripper.getGripperRotation());
+        telemetry.addData("Tongue Distance: ", robotCore.tongue.getPosition());
+
 
     }
 

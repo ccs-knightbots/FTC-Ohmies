@@ -9,17 +9,17 @@ public class Gripper {
         gripperServo = hwMap.get(Servo.class, "gripperServo");
     }
 
-    public void closeClaw() {
+    public void closeGripper() {
         gripperServo.setPosition(0);
     }
 
-    public void openClaw() {
-        gripperServo.setPosition(.5);
+    public void openGripper() {
+        gripperServo.setPosition(.3);
     }
 
-    public void setClawServo(double clawAngle) {gripperServo.setPosition(clawAngle);}
+    public void setGripperServo(double clawAngle) {gripperServo.setPosition(clawAngle);}
 
-    public double getClawRotation() {return gripperServo.getPosition();}
+    public double getGripperRotation() {return gripperServo.getPosition();}
 //    Note: the getPosition() method doesn't return the real position, only the set position
 
     //    The units for these functions are rotations. 1 rotation = 360 degrees

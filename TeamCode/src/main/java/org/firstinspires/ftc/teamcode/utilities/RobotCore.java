@@ -12,6 +12,7 @@ public class RobotCore {
     public Slides slides;
     public ManualDrive manualDrive;
     public Vision vision;
+    public Tongue tongue;
 
     public RobotCore(HardwareMap hwMap) {
         claw = new Claw(hwMap);
@@ -20,5 +21,6 @@ public class RobotCore {
         slides = new Slides(hwMap);
         manualDrive = new ManualDrive(hwMap);
         vision = new Vision(hwMap);
+        tongue = new Tongue(hwMap);
     }
 }
