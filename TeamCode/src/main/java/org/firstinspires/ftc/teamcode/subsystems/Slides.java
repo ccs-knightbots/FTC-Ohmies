@@ -77,7 +77,7 @@ public class Slides {
        setPower(0);
     }
 
-    public double getLinearExtender1() {return linearExtender1.getCurrentPosition()/(.5*tickPerRotation);}
+    public double getLinearExtenderPos1() {return linearExtender1.getCurrentPosition()/(.5*tickPerRotation);}
     public double getLinearExtender2() {return linearExtender2.getCurrentPosition()/(.5*tickPerRotation);}
 //    For some reason, the FTC ticksPerRotation is 2x what it should be.
 }

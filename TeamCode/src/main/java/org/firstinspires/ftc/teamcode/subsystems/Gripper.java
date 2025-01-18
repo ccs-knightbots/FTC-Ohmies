@@ -17,7 +17,9 @@ public class Gripper {
         gripperServo.setPosition(.3);
     }
 
-    public void setGripperServo(double clawAngle) {gripperServo.setPosition(clawAngle);}
+    public void raiseGripper(){ gripperServo.setPosition(.6);}
+
+    public void setGripperServo(double gripperAngle) {gripperServo.setPosition(gripperAngle);}
 
     public double getGripperRotation() {return gripperServo.getPosition();}
 //    Note: the getPosition() method doesn't return the real position, only the set position

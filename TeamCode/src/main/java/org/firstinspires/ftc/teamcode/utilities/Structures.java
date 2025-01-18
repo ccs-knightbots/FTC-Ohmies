@@ -6,11 +6,13 @@ public class Structures {
     boolean alreadyPressed2;
     boolean alreadyPressed3;
     boolean alreadyPressed4;
+    boolean alreadyPressed5;
 
     boolean state;
     boolean state2;
     boolean state3;
     boolean state4;
+    boolean state5;
 
 //    The below "if" block is a toggle. It passes the first gate upon the press of A, but then it changes alreadyPressed, which prevents
 //    any further changing of state. In the new state, it redefines the variables to be opposite.
@@ -45,6 +47,14 @@ public class Structures {
         }
         alreadyPressed4 = userInput;
         return !state4;
+    }
+
+    public boolean toggle_5(boolean userInput) {
+        if (userInput && !alreadyPressed5) {
+            state5 = !state5;
+        }
+        alreadyPressed5 = userInput;
+        return !state5;
     }
 
 
