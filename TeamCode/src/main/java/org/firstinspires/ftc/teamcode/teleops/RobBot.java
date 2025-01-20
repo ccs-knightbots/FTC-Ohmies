@@ -39,6 +39,7 @@ public class RobBot extends OpMode {
         robotCore.vision.stopStreaming();
         robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
         robotCore.tongue.tongueSM.transition(TongueSM.EVENT.ENABLE_MANUAL);
+        robotCore.ankle.lowerAnkle();
     }
 
     @Override
@@ -72,20 +73,35 @@ public class RobBot extends OpMode {
             robotCore.claw.closeClaw();
         }
 
-        if (gripperAngle < .6) {
-            if (gamepad2.dpad_up && !alreadyPressed1) {
-                gripperAngle += .3;
-            }
-            alreadyPressed1 = gamepad2.dpad_up;
+        //      This toggle block moves the claw servo.
+        if (structures.toggle_4(gamepad2.y)) {
+            robotCore.gripper.openGripper();
+        } else {
+            robotCore.gripper.closeGripper();
         }
 
-        if (gripperAngle > 0) {
-            if (gamepad2.dpad_down && !alreadyPressed2) {
-                gripperAngle -= .3;
-            }
-            alreadyPressed2 = gamepad2.dpad_down;
+        //      This toggle block moves the claw servo.
+        if (gamepad2.dpad_up) {
+            robotCore.ankle.raiseAnkle();
+        } else if (gamepad2.dpad_down) {
+            robotCore.ankle.lowerAnkle();
         }
-        robotCore.gripper.setGripperServo(gripperAngle);
+
+//        if (gripperAngle < .6) {
+//            if (gamepad2.dpad_up && !alreadyPressed1) {
+//                gripperAngle += .3;
+//            }
+//            alreadyPressed1 = gamepad2.dpad_up;
+//        }
+//
+//        if (gripperAngle > 0) {
+//            if (gamepad2.dpad_down && !alreadyPressed2) {
+//                gripperAngle -= .3;
+//            }
+//            alreadyPressed2 = gamepad2.dpad_down;
+//        }
+//        robotCore.gripper.setGripperServo(gripperAngle);
+
 
 //      This maps the game pad [-1, 1] to the servo [0, .5]. Measured in rotations.
         robotCore.wrist.setWristServo((-gamepad2.left_stick_y + 1) / 4);
@@ -112,11 +128,15 @@ public class RobBot extends OpMode {
         }
         alreadyDown = approximatelyDown;
 
+        if (gamepad2.left_stick_button) {
+            robotCore.slides.goUp(1.1);
+        }
+
 //        This end stage code may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
 //        due to the anti-overheating mechanism
-//        if (gamepad2.right_stick_button) {
-//            finalStage = true;
-//            robotCore.slides.runTo(.7); }
+        if (gamepad2.right_stick_button) {
+            finalStage = true;
+            robotCore.slides.goUp(2.2); }
 
         if (robotCore.tongue.getPosition() < -2300) {
             tongueOut = 0;
@@ -137,6 +157,8 @@ public class RobBot extends OpMode {
         telemetry.addData("Wrist Rotation: ", robotCore.wrist.getWristRotation());
         telemetry.addData("Gripper Rotation: ", robotCore.gripper.getGripperRotation());
         telemetry.addData("Tongue Distance: ", robotCore.tongue.getPosition());
+        telemetry.addData("Ankle Distance: ", robotCore.ankle.getAnklePosition());
+
     }
 
 

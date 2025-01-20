@@ -14,7 +14,7 @@ public class Gripper {
     }
 
     public void openGripper() {
-        gripperServo.setPosition(.3);
+        gripperServo.setPosition(.9);
     }
 
     public void raiseGripper(){ gripperServo.setPosition(.6);}
