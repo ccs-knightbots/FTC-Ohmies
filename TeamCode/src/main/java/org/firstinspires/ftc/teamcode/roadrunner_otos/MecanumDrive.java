@@ -61,15 +61,42 @@ public class MecanumDrive {
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
                 RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
+//        // drive model parameters
+//        public double inPerTick = 1; // SparkFun OTOS Note: you can probably leave this at 1
+////        public double lateralInPerTick = inPerTick;
+//        public double lateralInPerTick = 0.7506556359697476;
+////        12.14508797413619, 14.5
+//        public double trackWidthTicks = 22.5;
+//
+//        // feedforward parameters (in tick units)
+//        public double kS = 0.8206605001447929;
+//        public double kV = 0.2123070755586681;
+//        public double kA = .000000;
+
+//        // drive model parameters
+//        public double inPerTick = 2.0; // SparkFun OTOS Note: you can probably leave this at 1
+//        //        public double lateralInPerTick = inPerTick;
+//        public double lateralInPerTick = 0.7506556359697476;
+//        public double trackWidthTicks = 11.033781016117905;
+//
+////                public double kV = 0.28581519302417196;
+//
+//        // feedforward parameters (in tick units)
+//        public double kS = 0.8670791748751556;
+//        public double kV = 0.32581519302417196;
+//        public double kA = .000000;
+
+//        0.7506556359697476
+
         // drive model parameters
-        public double inPerTick = 1; // SparkFun OTOS Note: you can probably leave this at 1
-        public double lateralInPerTick = inPerTick;
-        public double trackWidthTicks = 12.14508797413619 ;
-//2.016542720605208
+        public double inPerTick = 1.6; // SparkFun OTOS Note: you can probably leave this at 1
+        public double lateralInPerTick = 1;
+        public double trackWidthTicks = 10.533781016117905;
+
         // feedforward parameters (in tick units)
-        public double kS = 0.9095068054514561;
-        public double kV = 0.19967894474954903;
-        public double kA = 0;
+        public double kS = 0.8670791748751556;
+        public double kV = 0.28581519302417196;
+        public double kA = .000000;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;

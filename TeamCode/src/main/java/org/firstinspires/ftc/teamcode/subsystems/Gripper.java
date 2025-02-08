@@ -26,5 +26,20 @@ public class Gripper {
 
     //    The units for these functions are rotations. 1 rotation = 360 degrees
 
-}
+//        if (gripperAngle < .6) {
+//            if (gamepad2.dpad_up && !alreadyPressed1) {
+//                gripperAngle += .3;
+//            }
+//            alreadyPressed1 = gamepad2.dpad_up;
+//        }
+//
+//        if (gripperAngle > 0) {
+//            if (gamepad2.dpad_down && !alreadyPressed2) {
+//                gripperAngle -= .3;
+//            }
+//            alreadyPressed2 = gamepad2.dpad_down;
+//        }
+//        robotCore.gripper.setGripperServo(gripperAngle);
+
+    }
 

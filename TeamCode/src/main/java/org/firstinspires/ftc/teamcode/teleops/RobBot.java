@@ -66,6 +66,34 @@ public class RobBot extends OpMode {
 //      This function sends the game pad inputs to the Traction class.
         robotCore.manualDrive.controllerDrive(axial * slowDown, lateral * slowDown, yaw * slowDown);
 
+//        This code block runs the linear slides up and down.
+        if (gamepad1.dpad_up) {
+            robotCore.slides.goUp(.5449);
+//            Full run is 2.15
+       } else if (gamepad1.dpad_down) {
+            robotCore.slides.goDown();
+        }
+
+        if (gamepad2.left_stick_button) {
+            robotCore.slides.goUp(1.1);
+        } else if (gamepad2.right_stick_button) {
+//            finalStage = true;
+            robotCore.slides.goUp(1.6426);
+        }
+//        This final stage variable may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
+//        due to the anti-overheating mechanism
+
+        //        To stop the Linear Extenders from wasting battery and heating up, we signal for them to turn off when they reach near 0.
+        boolean approximatelyDown = Math.abs(robotCore.slides.getLinearExtenderPos1()) <= .1;
+        if (approximatelyDown && !alreadyDown) {
+            if (finalStage) {
+                robotCore.slides.goDown();
+            } else {
+                robotCore.slides.cancelRunTo();
+            }
+        }
+        alreadyDown = approximatelyDown;
+
         //      This toggle block moves the claw servo.
         if (structures.toggle_2(gamepad2.x)) {
             robotCore.claw.openClaw();
@@ -82,62 +110,13 @@ public class RobBot extends OpMode {
 
         //      This toggle block moves the claw servo.
         if (gamepad2.dpad_up) {
-            robotCore.ankle.raiseAnkle();
-        } else if (gamepad2.dpad_down) {
             robotCore.ankle.lowerAnkle();
+        } else if (gamepad2.dpad_down) {
+            robotCore.ankle.raiseAnkle();
         }
-
-//        if (gripperAngle < .6) {
-//            if (gamepad2.dpad_up && !alreadyPressed1) {
-//                gripperAngle += .3;
-//            }
-//            alreadyPressed1 = gamepad2.dpad_up;
-//        }
-//
-//        if (gripperAngle > 0) {
-//            if (gamepad2.dpad_down && !alreadyPressed2) {
-//                gripperAngle -= .3;
-//            }
-//            alreadyPressed2 = gamepad2.dpad_down;
-//        }
-//        robotCore.gripper.setGripperServo(gripperAngle);
-
 
 //      This maps the game pad [-1, 1] to the servo [0, .5]. Measured in rotations.
         robotCore.wrist.setWristServo((-gamepad2.left_stick_y + 1) / 4);
-
-//        This code block runs the linear slides up and down.
-        if (gamepad1.dpad_up) {
-            robotCore.slides.goUp(.5449);
-//            Full run is 2.15
-       } else if (gamepad1.dpad_down) {
-            robotCore.slides.goDown();
-        }
-//        robotCore.slides.slidesSM.transition(SlidesSM.EVENT.ENABLE_RTP);
-//        I need to test this, but I should be able to comment this line out and add a few lines in the Slides class.
-//        It might error out though due to calling setPosition() when the motors aren't in RUN_TO_POSITION
-
-//        To stop the Linear Extenders from wasting battery and heating up, we signal for them to turn off when they reach near 0.
-        boolean approximatelyDown = Math.abs(robotCore.slides.getLinearExtenderPos1()) <= .1;
-        if (approximatelyDown && !alreadyDown) {
-            if (finalStage) {
-                robotCore.slides.goDown();
-            } else {
-                robotCore.slides.cancelRunTo();
-            }
-        }
-        alreadyDown = approximatelyDown;
-
-        if (gamepad2.left_stick_button) {
-            robotCore.slides.goUp(1.1);
-        }
-
-//        This end stage code may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
-//        due to the anti-overheating mechanism
-        if (gamepad2.right_stick_button) {
-            finalStage = true;
-            robotCore.slides.goUp(2.2); }
-
         if (robotCore.tongue.getPosition() < -2300) {
             tongueOut = 0;
         } else {

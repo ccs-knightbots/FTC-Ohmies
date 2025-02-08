@@ -10,11 +10,11 @@ public class Claw {
     }
 
     public void closeClaw() {
-        clawServo.setPosition(0);
+        clawServo.setPosition(.3);
     }
 
     public void openClaw() {
-        clawServo.setPosition(.5);
+        clawServo.setPosition(.6);
     }
 
     public void setClawServo(double clawAngle) {clawServo.setPosition(clawAngle);}
