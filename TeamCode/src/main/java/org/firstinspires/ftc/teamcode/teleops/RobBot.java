@@ -78,7 +78,7 @@ public class RobBot extends OpMode {
             robotCore.slides.goUp(1.1);
         } else if (gamepad2.right_stick_button) {
 //            finalStage = true;
-            robotCore.slides.goUp(1.6426);
+            robotCore.slides.goUp(1.6726);
         }
 //        This final stage variable may be useful later. It runs the slides to a different position, and most importantly, stops the slides from disengaging
 //        due to the anti-overheating mechanism

@@ -18,7 +18,8 @@ public class ClipAuto extends OpMode {
         FORWARD,
         BACK,
         END,
-        RR
+        RR,
+        STOP
     }
     State state = State.WAIT;
 
@@ -81,18 +82,19 @@ public class ClipAuto extends OpMode {
                 if (getRuntime() >= 6) {
                     Actions.runBlocking(
                             drive.actionBuilder(beginPose)
-                                    .strafeTo(new Vector2d(36,-36))
-                                    .strafeTo(new Vector2d(48, 0))
-                                    .strafeTo(new Vector2d(54, 0))
-                                    .strafeTo(new Vector2d(48, -54))
-                                    .strafeTo(new Vector2d(54, 0))
-                                    .strafeTo(new Vector2d(58, 0))
-                                    .strafeTo(new Vector2d(58, -54))
-                                    .strafeTo(new Vector2d(58, 0))
-                                    .strafeTo(new Vector2d(62, 0))
+                                    .strafeTo(new Vector2d(42,-36))
+                                    .strafeTo(new Vector2d(49, -8))
+                                    .strafeTo(new Vector2d(56, -8))
+                                    .strafeTo(new Vector2d(56, -54))
+                                    .strafeTo(new Vector2d(56, -8))
+                                    .strafeTo(new Vector2d(62, -8))
                                     .strafeTo(new Vector2d(62, -54))
+                                    .strafeTo(new Vector2d(62, -8))
+                                    .strafeTo(new Vector2d(69, -8))
+                                    .strafeTo(new Vector2d(69, -54))
 
                                     .build());
+                    state = State.STOP;
                 }
                 break;
 
