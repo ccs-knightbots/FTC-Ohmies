@@ -117,6 +117,7 @@ public class RobBot extends OpMode {
 
 //      This maps the game pad [-1, 1] to the servo [0, .5]. Measured in rotations.
         robotCore.wrist.setWristServo((-gamepad2.left_stick_y + 1) / 4);
+
         if (robotCore.tongue.getPosition() < -2300) {
             tongueOut = 0;
         } else {
